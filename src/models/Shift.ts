@@ -1,9 +1,12 @@
 import mongoose from 'mongoose';
+import { SHIFT } from '../config/limits';
 
 const shiftSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    trim: true,
+    maxlength: [SHIFT.MAX_TITLE_LENGTH, `Title must be ${SHIFT.MAX_TITLE_LENGTH} characters or fewer`]
   },
   // ISO 8601 str format, specifies date and time
   startTime: {
@@ -17,7 +20,8 @@ const shiftSchema = new mongoose.Schema({
   capacity: {
     type: Number,
     required: true,
-    min: [1, 'Capacity must be at least 1'] // needs a copacity of at least 1
+    min: [1, 'Capacity must be at least 1'], // needs a copacity of at least 1
+    max: [SHIFT.MAX_CAPACITY, `Capacity must be ${SHIFT.MAX_CAPACITY} or fewer`]
   },
   // relational approach
   // links to the Volunteer collection
