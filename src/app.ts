@@ -22,3 +22,7 @@ mongoose.connect(process.env.MONGODB_URI as string)
 app.get('/', (req: Request, res: Response) => {
     res.send('API is running');
 });
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
